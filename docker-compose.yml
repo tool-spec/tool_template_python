@@ -1,0 +1,12 @@
+services:
+  template:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/src
+      - ./in:/in
+      - ./out:/out
+    environment:
+      - TOOL_RUN=foobar
+    command: python run.py
