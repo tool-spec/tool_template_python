@@ -2,7 +2,6 @@ tools:
   foobar:
     title: Foo Bar
     description: A dummy tool to exemplify the YAML file
-    version: 0.1
     parameters:
       foo_int: 
         type: integer
