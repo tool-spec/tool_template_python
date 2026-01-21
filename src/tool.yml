@@ -2,6 +2,7 @@ tools:
   foobar:
     title: Foo Bar
     description: A dummy tool to exemplify the YAML file
+    command: "python run.py"
     parameters:
       foo_int: 
         type: integer
