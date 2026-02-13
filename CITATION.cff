@@ -19,21 +19,20 @@ authors:
     family-names: Dolich
     email: alexander.dolich@kit.edu
     affiliation: >-
-      nstitute for Water and Environment, Hydrology,
+      Institute for Water and Environment, Hydrology,
       Karlsruhe Institute for Technology (KIT)
     orcid: 'https://orcid.org/0000-0003-4160-6765'
-repository-code: 'https://github.com/VForWaTer/tool_template_python'
-url: 'https://vforwater.github.io/tool-specs/'
+repository-code: 'https://github.com/tool-spec/tool_template_python'
+url: 'https://tool-spec.github.io/tool-specs/'
 abstract: >-
   This is a Github repository template for scientific data
-  (pre-)processing tools follwoing the tool specs
-  (https://vforwater.github.io/tool-specs/) for
+  (pre-)processing tools following the tool specs
+  (https://tool-spec.github.io/tool-specs/) for
   containerized scientific tools. You can use this
   repository as a starting point for scientific tools.
 keywords:
   - docker
   - tool-spec
-  - V-For-WaTer
 license: CC-BY-4.0
-version: '0.6'
-date-released: '2025-11-12'
+version: '0.6.1'
+date-released: '2026-02-13'
