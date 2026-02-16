@@ -9,6 +9,13 @@ RUN pip install "json2args[data]>=0.6.2"
 # with less dependencies
 # RUN pip install json2args>=0.6.2
 
+# Build spec binary from source
+RUN apt-get update && apt-get install -y golang-go git && \
+    git clone https://github.com/hydrocode-de/gotap.git /tmp/gotap && \
+    cd /tmp/gotap && go build -o /usr/local/bin/spec ./main.go && \
+    rm -rf /tmp/gotap && \
+    apt-get remove -y golang-go git && apt-get autoremove -y && apt-get clean
+
 # Do anything you need to install tool dependencies here
 RUN echo "Replace this line with a tool"
 
@@ -23,4 +30,4 @@ COPY ./src /src
 COPY ./CITATION.cf[f] /src/CITATION.cff
 
 WORKDIR /src
-CMD ["python", "run.py"]
+CMD ["spec", "run", "foobar", "--input-file", "/in/input.json"]
