@@ -47,7 +47,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ghcr.io/vforwater/tbr_template_python
+          images: ghcr.io/tool-spec/tbr_template_python
 
       - name: Build and push
         uses: docker/build-push-action@v3

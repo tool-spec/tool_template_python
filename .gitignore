@@ -120,6 +120,10 @@ venv.bak/
 # mkdocs documentation
 /site
 
+# gotap-generated bindings (built during Docker build)
+src/parameters.py
+out/
+
 # mypy
 .mypy_cache/
 .dmypy.json

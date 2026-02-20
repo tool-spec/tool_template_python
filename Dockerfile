@@ -1,20 +1,14 @@
+# Build gotap from source, then discard Go
+FROM golang:1.25-alpine AS gotap-builder
+RUN apk add --no-cache git
+ARG GOTAP_VERSION=main
+RUN git clone --depth 1 --branch ${GOTAP_VERSION} https://github.com/tool-spec/gotap.git /gotap && \
+    cd /gotap && go build -o gotap .
+
 # Pull any base image that includes python3
 FROM python:3.12
-
-# install the toolbox runner tools
-RUN pip install "json2args[data]>=0.6.2"
-
-# if you do not need data-preloading as your tool does that on its own
-# you can use this instread of the line above to use a json2args version
-# with less dependencies
-# RUN pip install json2args>=0.6.2
-
-# Build spec binary from source
-RUN apt-get update && apt-get install -y golang-go git && \
-    git clone https://github.com/hydrocode-de/gotap.git /tmp/gotap && \
-    cd /tmp/gotap && go build -o /usr/local/bin/spec ./main.go && \
-    rm -rf /tmp/gotap && \
-    apt-get remove -y golang-go git && apt-get autoremove -y && apt-get clean
+COPY --from=gotap-builder /gotap/gotap /usr/local/bin/gotap
+RUN chmod +x /usr/local/bin/gotap
 
 # Do anything you need to install tool dependencies here
 RUN echo "Replace this line with a tool"
@@ -26,8 +20,12 @@ RUN mkdir /out
 RUN mkdir /src
 COPY ./src /src
 
+# Generate parameter bindings from tool.yml at build time (replaces json2args)
+WORKDIR /src
+RUN gotap generate --spec-file=tool.yml --target=python --output=parameters.py
+
 # copy the citation file - looks funny to make COPY not fail if the file is not there
 COPY ./CITATION.cf[f] /src/CITATION.cff
 
 WORKDIR /src
-CMD ["spec", "run", "foobar", "--input-file", "/in/input.json"]
+CMD ["gotap", "run", "foobar", "--input-file", "/in/input.json"]
