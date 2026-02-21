@@ -5,7 +5,7 @@ on: push
 jobs:
   release:
     name: Create Github release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     if: startsWith(github.event.ref, 'refs/tags/v')
 
     steps:
